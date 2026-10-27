@@ -79,7 +79,7 @@ Save this value — you will store it in Key Vault in Step 4.
 
 ## Step 3 — Storage Account and File Share
 
-The OTel Collector reads its configuration from `/etc/otelcol/config.yaml`. Rather than baking the file into a custom Docker image, mount an Azure Files share at `/etc/otelcol/` so the config can be updated without rebuilding the image.
+The OTel Collector contrib image reads its configuration from `/etc/otelcol-contrib/config.yaml`. Rather than baking the file into a custom Docker image, mount an Azure Files share at `/etc/otelcol-contrib/` so the config can be updated without rebuilding the image.
 
 ### 3.1 Create the storage account
 
@@ -147,7 +147,7 @@ az storage file upload \
   --auth-mode login
 ```
 
-After uploading, `config.yaml` sits at the root of the file share. The Container App will mount the share at `/etc/otelcol/`, making it accessible to the collector at `/etc/otelcol/config.yaml`.
+After uploading, `config.yaml` sits at the root of the file share. The Container App will mount the share at `/etc/otelcol-contrib/`, making it accessible to the collector at `/etc/otelcol-contrib/config.yaml`.
 
 ---
 
@@ -240,7 +240,7 @@ az containerapp create \
   --target-port 4318 \
   --transport http \
   --system-assigned \
-  --volume-mount "otelconfigvol:/etc/otelcol" \
+  --volume-mount "otelconfigvol:/etc/otelcol-contrib" \
   --volumes "name=otelconfigvol,storageType=AzureFile,storageName=otelconfig"
 ```
 

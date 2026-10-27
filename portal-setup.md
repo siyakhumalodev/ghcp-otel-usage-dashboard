@@ -114,7 +114,7 @@ See: [Authorize data operations in the portal](https://learn.microsoft.com/en-gb
 3. Expand **Storage Accounts → copilotdashotelconfig → File Shares → otel-config**
 4. Click **Upload → Upload Files**, select `config.yaml`, and confirm
 
-The file will be accessible to the container at `/etc/otelcol/config.yaml` once the file share is mounted in Step 7.
+The file will be accessible to the container at `/etc/otelcol-contrib/config.yaml` once the file share is mounted in Step 7.
 
 ---
 
@@ -275,7 +275,7 @@ Note the **Object (principal) ID** displayed — you will use it for role assign
 3. On the **Container** tab, select the container → **Edit**
 4. Under **Volume mounts → + Add volume mount**:
    - **Volume** — `otelconfigvol`
-   - **Mount path** — `/etc/otelcol`
+   - **Mount path** — `/etc/otelcol-contrib`
 5. Click **Save → Create** to deploy the revision
 
 ### 7.9 Verify the container is running
