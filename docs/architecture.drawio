@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-10-28T00:00:00.000Z" agent="GitHub Copilot" version="24.7.17" type="device" compressed="false">
+  <diagram id="copilot-usage-architecture" name="Architecture">
+    <mxGraphModel dx="1280" dy="760" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="GitHub Copilot Usage Dashboard" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Segoe UI;fontSize=24;fontStyle=1;fontColor=#172B4D;" vertex="1" parent="1">
+          <mxGeometry x="20" y="15" width="500" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="azure" value="Azure resource group" style="swimlane;html=1;rounded=1;startSize=34;horizontal=1;strokeWidth=2;strokeColor=#0078D4;fillColor=#F4F9FD;swimlaneFillColor=#E7F3FB;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#172B4D;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="190" y="75" width="870" height="590" as="geometry" />
+        </mxCell>
+        <mxCell id="vnet" value="Virtual network" style="swimlane;html=1;rounded=1;startSize=30;horizontal=1;strokeWidth=2;dashed=1;dashPattern=8 4;strokeColor=#008C95;fillColor=#F2FBFB;swimlaneFillColor=#DDF4F3;fontFamily=Segoe UI;fontSize=14;fontStyle=1;fontColor=#164E52;arcSize=8;" vertex="1" parent="azure">
+          <mxGeometry x="40" y="60" width="340" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="aca" value="Container Apps delegated subnet" style="swimlane;html=1;rounded=1;startSize=30;horizontal=1;strokeWidth=1.5;strokeColor=#0078D4;fillColor=#FFFFFF;swimlaneFillColor=#E7F3FB;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fontColor=#172B4D;arcSize=8;" vertex="1" parent="vnet">
+          <mxGeometry x="30" y="45" width="280" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="collector" value="OpenTelemetry Collector&lt;br&gt;&lt;font color=&quot;#42526E&quot;&gt;OTLP receiver, processors, exporters&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#0078D4;fillColor=#FFFFFF;fontFamily=Segoe UI;fontSize=14;fontStyle=1;fontColor=#172B4D;spacing=8;arcSize=10;" vertex="1" parent="aca">
+          <mxGeometry x="30" y="55" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="peSubnet" value="Private endpoint subnet" style="swimlane;html=1;rounded=1;startSize=28;horizontal=1;strokeWidth=1.5;strokeColor=#008C95;fillColor=#FFFFFF;swimlaneFillColor=#DDF4F3;fontFamily=Segoe UI;fontSize=12;fontStyle=1;fontColor=#164E52;arcSize=8;" vertex="1" parent="vnet">
+          <mxGeometry x="30" y="280" width="280" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="privateEndpoint" value="Key Vault private endpoint" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;strokeColor=#008C95;fillColor=#FFFFFF;fontFamily=Segoe UI;fontSize=13;fontColor=#172B4D;arcSize=10;" vertex="1" parent="peSubnet">
+          <mxGeometry x="30" y="42" width="220" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="appInsights" value="Application Insights&lt;br&gt;&lt;font color=&quot;#42526E&quot;&gt;workspace-based&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#7A4EAB;fillColor=#F8F4FC;fontFamily=Segoe UI;fontSize=14;fontStyle=1;fontColor=#172B4D;spacing=8;arcSize=10;" vertex="1" parent="azure">
+          <mxGeometry x="420" y="115" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="logAnalytics" value="Log Analytics&lt;br&gt;&lt;font color=&quot;#42526E&quot;&gt;telemetry workspace&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeWidth=2;strokeColor=#7A4EAB;fillColor=#F8F4FC;fontFamily=Segoe UI;fontSize=14;fontStyle=1;fontColor=#172B4D;spacing=8;" vertex="1" parent="azure">
+          <mxGeometry x="420" y="270" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="grafana" value="Azure Managed Grafana&lt;br&gt;&lt;font color=&quot;#42526E&quot;&gt;Azure Monitor data source&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#D83B01;fillColor=#FFF5F0;fontFamily=Segoe UI;fontSize=14;fontStyle=1;fontColor=#172B4D;spacing=8;arcSize=10;" vertex="1" parent="azure">
+          <mxGeometry x="650" y="200" width="185" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="acr" value="Azure Container Registry&lt;br&gt;&lt;font color=&quot;#42526E&quot;&gt;collector image&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;strokeColor=#42526E;fillColor=#FFFFFF;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fontColor=#172B4D;spacing=8;arcSize=10;" vertex="1" parent="azure">
+          <mxGeometry x="60" y="475" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="identity" value="Collector managed identity" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;strokeColor=#42526E;fillColor=#FFFFFF;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fontColor=#172B4D;spacing=8;arcSize=10;" vertex="1" parent="azure">
+          <mxGeometry x="280" y="475" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="keyVault" value="Azure Key Vault&lt;br&gt;&lt;font color=&quot;#42526E&quot;&gt;connection string secret&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;strokeColor=#42526E;fillColor=#FFFFFF;fontFamily=Segoe UI;fontSize=13;fontStyle=1;fontColor=#172B4D;spacing=8;arcSize=10;" vertex="1" parent="azure">
+          <mxGeometry x="520" y="475" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vscode" value="VS Code&lt;br&gt;&lt;b&gt;GitHub Copilot&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#172B4D;fillColor=#FFFFFF;fontFamily=Segoe UI;fontSize=15;fontColor=#172B4D;spacing=8;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="20" y="260" width="145" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="viewer" value="Dashboard viewer" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;strokeColor=#172B4D;fillColor=#FFFFFF;fontFamily=Segoe UI;fontSize=15;fontColor=#172B4D;spacing=8;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="275" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="legendData" value="Runtime telemetry and query flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=12;fontColor=#42526E;" vertex="1" parent="1">
+          <mxGeometry x="60" y="690" width="220" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="legendDataLine" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#0078D4;endArrow=block;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="702" as="sourcePoint" />
+            <mxPoint x="50" y="702" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legendDependency" value="Identity or deployment dependency" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=12;fontColor=#42526E;" vertex="1" parent="1">
+          <mxGeometry x="365" y="690" width="210" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="legendDependencyLine" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;dashed=1;dashPattern=6 4;strokeColor=#42526E;endArrow=open;endFill=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="325" y="702" as="sourcePoint" />
+            <mxPoint x="355" y="702" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edgeVscodeCollector" value="OTLP/HTTP over HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;strokeColor=#0078D4;endArrow=block;endFill=1;fontFamily=Segoe UI;fontSize=12;fontColor=#172B4D;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="vscode" target="collector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeCollectorAi" value="Azure Monitor export" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;strokeColor=#0078D4;endArrow=block;endFill=1;fontFamily=Segoe UI;fontSize=12;fontColor=#172B4D;labelBackgroundColor=#FFFFFF;" edge="1" parent="azure" source="collector" target="appInsights">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeAiLaw" value="workspace telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;strokeColor=#0078D4;endArrow=block;endFill=1;fontFamily=Segoe UI;fontSize=12;fontColor=#172B4D;labelBackgroundColor=#FFFFFF;" edge="1" parent="azure" source="appInsights" target="logAnalytics">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeLawGrafana" value="KQL queries" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;strokeColor=#0078D4;startArrow=block;startFill=1;endArrow=block;endFill=1;fontFamily=Segoe UI;fontSize=12;fontColor=#172B4D;labelBackgroundColor=#FFFFFF;" edge="1" parent="azure" source="logAnalytics" target="grafana">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeGrafanaViewer" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;strokeColor=#0078D4;endArrow=block;endFill=1;fontFamily=Segoe UI;fontSize=12;fontColor=#172B4D;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="grafana" target="viewer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeIdentityAcr" value="AcrPull" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;dashed=1;dashPattern=6 4;strokeColor=#42526E;endArrow=open;endFill=0;fontFamily=Segoe UI;fontSize=11;fontColor=#42526E;labelBackgroundColor=#FFFFFF;" edge="1" parent="azure" source="identity" target="acr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeAcrCollector" value="container image" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;dashed=1;dashPattern=6 4;strokeColor=#42526E;endArrow=open;endFill=0;fontFamily=Segoe UI;fontSize=11;fontColor=#42526E;labelBackgroundColor=#FFFFFF;" edge="1" parent="azure" source="acr" target="collector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeIdentityKv" value="Key Vault Secrets User" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;dashed=1;dashPattern=6 4;strokeColor=#42526E;endArrow=open;endFill=0;fontFamily=Segoe UI;fontSize=11;fontColor=#42526E;labelBackgroundColor=#FFFFFF;" edge="1" parent="azure" source="identity" target="keyVault">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgeKvPe" value="private access" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;dashed=1;dashPattern=6 4;strokeColor=#42526E;endArrow=open;endFill=0;fontFamily=Segoe UI;fontSize=11;fontColor=#42526E;labelBackgroundColor=#FFFFFF;" edge="1" parent="azure" source="keyVault" target="privateEndpoint">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edgePeCollector" value="secret reference" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;dashed=1;dashPattern=6 4;strokeColor=#42526E;endArrow=open;endFill=0;fontFamily=Segoe UI;fontSize=11;fontColor=#42526E;labelBackgroundColor=#FFFFFF;" edge="1" parent="azure" source="privateEndpoint" target="collector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -43,18 +43,7 @@ geographic dimensions in Azure Managed Grafana.
 
 ## Architecture
 
-```text
-VS Code with GitHub Copilot
-        | OTLP/HTTP over HTTPS
-        v
-Azure Container Apps: OpenTelemetry Collector
-        | Azure Monitor exporter
-        v
-Workspace-based Application Insights and Log Analytics
-        | KQL through the Azure Monitor data source
-        v
-Azure Managed Grafana
-```
+![GitHub Copilot usage dashboard architecture](docs/images/architecture.svg)
 
 The collector runs in a VNet-integrated Container Apps environment. Its
 user-assigned managed identity pulls the image from Azure Container Registry and
@@ -62,8 +51,9 @@ reads the Application Insights connection string from Key Vault. Key Vault uses
 a private endpoint and disables public network access. Grafana queries Azure
 Monitor with its system-assigned identity.
 
-See the [solution dataflow](docs/dataflow-diagram.md) for the complete runtime,
-identity, and network flows.
+Open the [editable draw.io source](docs/architecture.drawio) to customize the
+diagram. See the [solution dataflow](docs/dataflow-diagram.md) for the complete
+runtime, identity, and network flows.
 
 ## Quick Start
 

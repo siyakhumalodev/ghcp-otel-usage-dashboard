@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title description">
+  <title id="title">GitHub Copilot usage dashboard architecture</title>
+  <desc id="description">GitHub Copilot in VS Code sends OpenTelemetry over HTTPS to an OpenTelemetry Collector on Azure Container Apps. The collector exports to Application Insights and Log Analytics. Azure Managed Grafana queries the workspace and presents dashboards. Managed identity provides access to Azure Container Registry and Key Vault through a private endpoint.</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0078D4" />
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#42526E" stroke-width="1.5" />
+    </marker>
+    <style>
+      .title { font: 700 24px "Segoe UI", sans-serif; fill: #172b4d; }
+      .boundary-title { font: 700 15px "Segoe UI", sans-serif; fill: #172b4d; }
+      .vnet-title { font: 700 14px "Segoe UI", sans-serif; fill: #164e52; }
+      .subnet-title { font: 700 13px "Segoe UI", sans-serif; fill: #172b4d; }
+      .node-title { font: 700 14px "Segoe UI", sans-serif; fill: #172b4d; text-anchor: middle; }
+      .node-subtitle { font: 400 12px "Segoe UI", sans-serif; fill: #42526e; text-anchor: middle; }
+      .external { font: 600 15px "Segoe UI", sans-serif; fill: #172b4d; text-anchor: middle; }
+      .edge-label { font: 400 12px "Segoe UI", sans-serif; fill: #172b4d; text-anchor: middle; }
+      .dependency-label { font: 400 11px "Segoe UI", sans-serif; fill: #42526e; text-anchor: middle; }
+      .legend { font: 400 12px "Segoe UI", sans-serif; fill: #42526e; }
+      .data-flow { fill: none; stroke: #0078d4; stroke-width: 2.5; marker-end: url(#arrow-blue); }
+      .data-flow-both { fill: none; stroke: #0078d4; stroke-width: 2.5; marker-start: url(#arrow-blue); marker-end: url(#arrow-blue); }
+      .dependency { fill: none; stroke: #42526e; stroke-width: 1.5; stroke-dasharray: 6 4; marker-end: url(#arrow-gray); }
+      .label-bg { fill: #ffffff; }
+    </style>
+  </defs>
+  <rect width="1280" height="760" fill="#ffffff" />
+  <text x="20" y="43" class="title">GitHub Copilot Usage Dashboard</text>
+
+  <rect x="190" y="75" width="870" height="590" rx="10" fill="#f4f9fd" stroke="#0078d4" stroke-width="2" />
+  <path d="M200 75 H1050 A10 10 0 0 1 1060 85 V109 H190 V85 A10 10 0 0 1 200 75 Z" fill="#e7f3fb" />
+  <text x="210" y="98" class="boundary-title">Azure resource group</text>
+
+  <rect x="230" y="135" width="340" height="410" rx="9" fill="#f2fbfb" stroke="#008c95" stroke-width="2" stroke-dasharray="8 4" />
+  <path d="M239 135 H561 A9 9 0 0 1 570 144 V165 H230 V144 A9 9 0 0 1 239 135 Z" fill="#ddf4f3" />
+  <text x="250" y="156" class="vnet-title">Virtual network</text>
+
+  <rect x="260" y="180" width="280" height="190" rx="8" fill="#ffffff" stroke="#0078d4" stroke-width="1.5" />
+  <path d="M268 180 H532 A8 8 0 0 1 540 188 V210 H260 V188 A8 8 0 0 1 268 180 Z" fill="#e7f3fb" />
+  <text x="280" y="201" class="subnet-title">Container Apps delegated subnet</text>
+
+  <rect x="290" y="235" width="220" height="90" rx="8" fill="#ffffff" stroke="#0078d4" stroke-width="2" />
+  <text x="400" y="270" class="node-title">OpenTelemetry Collector</text>
+  <text x="400" y="294" class="node-subtitle">OTLP receiver, processors, exporters</text>
+
+  <rect x="260" y="415" width="280" height="100" rx="8" fill="#ffffff" stroke="#008c95" stroke-width="1.5" />
+  <path d="M268 415 H532 A8 8 0 0 1 540 423 V443 H260 V423 A8 8 0 0 1 268 415 Z" fill="#ddf4f3" />
+  <text x="280" y="436" class="subnet-title">Private endpoint subnet</text>
+  <rect x="290" y="457" width="220" height="42" rx="7" fill="#ffffff" stroke="#008c95" stroke-width="1.5" />
+  <text x="400" y="483" class="node-title" style="font-size:13px">Key Vault private endpoint</text>
+
+  <rect x="610" y="190" width="180" height="80" rx="8" fill="#f8f4fc" stroke="#7a4eab" stroke-width="2" />
+  <text x="700" y="221" class="node-title">Application Insights</text>
+  <text x="700" y="245" class="node-subtitle">workspace-based</text>
+
+  <path d="M610 350 C610 339 650 330 700 330 C750 330 790 339 790 350 V405 C790 416 750 425 700 425 C650 425 610 416 610 405 Z" fill="#f8f4fc" stroke="#7a4eab" stroke-width="2" />
+  <ellipse cx="700" cy="350" rx="90" ry="20" fill="#f8f4fc" stroke="#7a4eab" stroke-width="2" />
+  <text x="700" y="378" class="node-title">Log Analytics</text>
+  <text x="700" y="400" class="node-subtitle">telemetry workspace</text>
+
+  <rect x="840" y="275" width="185" height="90" rx="8" fill="#fff5f0" stroke="#d83b01" stroke-width="2" />
+  <text x="932.5" y="310" class="node-title">Azure Managed Grafana</text>
+  <text x="932.5" y="334" class="node-subtitle">Azure Monitor data source</text>
+
+  <rect x="250" y="550" width="190" height="70" rx="8" fill="#ffffff" stroke="#42526e" stroke-width="1.5" />
+  <text x="345" y="579" class="node-title" style="font-size:13px">Azure Container Registry</text>
+  <text x="345" y="601" class="node-subtitle">collector image</text>
+
+  <rect x="470" y="550" width="210" height="70" rx="8" fill="#ffffff" stroke="#42526e" stroke-width="1.5" />
+  <text x="575" y="589" class="node-title" style="font-size:13px">Collector managed identity</text>
+
+  <rect x="710" y="550" width="190" height="70" rx="8" fill="#ffffff" stroke="#42526e" stroke-width="1.5" />
+  <text x="805" y="579" class="node-title" style="font-size:13px">Azure Key Vault</text>
+  <text x="805" y="601" class="node-subtitle">connection string secret</text>
+
+  <rect x="20" y="260" width="145" height="80" rx="8" fill="#ffffff" stroke="#172b4d" stroke-width="2" />
+  <text x="92.5" y="291" class="external">VS Code</text>
+  <text x="92.5" y="316" class="external" style="font-weight:700">GitHub Copilot</text>
+
+  <rect x="1090" y="285" width="150" height="70" rx="8" fill="#ffffff" stroke="#172b4d" stroke-width="2" />
+  <text x="1165" y="325" class="external">Dashboard viewer</text>
+
+  <path d="M165 300 H290" class="data-flow" />
+  <rect x="178" y="278" width="104" height="18" class="label-bg" />
+  <text x="230" y="291" class="edge-label">OTLP/HTTP over HTTPS</text>
+
+  <path d="M510 270 H560 V230 H610" class="data-flow" />
+  <rect x="523" y="237" width="100" height="18" class="label-bg" />
+  <text x="573" y="250" class="edge-label">Azure Monitor export</text>
+
+  <path d="M700 270 V330" class="data-flow" />
+  <rect x="708" y="289" width="112" height="18" class="label-bg" />
+  <text x="764" y="302" class="edge-label">workspace telemetry</text>
+
+  <path d="M790 378 H815 V320 H840" class="data-flow-both" />
+  <rect x="796" y="337" width="76" height="18" class="label-bg" />
+  <text x="834" y="350" class="edge-label">KQL queries</text>
+
+  <path d="M1025 320 H1090" class="data-flow" />
+  <rect x="1036" y="298" width="43" height="18" class="label-bg" />
+  <text x="1057.5" y="311" class="edge-label">HTTPS</text>
+
+  <path d="M470 585 V640 H440 V585" class="dependency" />
+  <rect x="420" y="637" width="70" height="17" class="label-bg" />
+  <text x="455" y="649" class="dependency-label">AcrPull</text>
+
+  <path d="M345 550 V525 H275 V325 H290" class="dependency" />
+  <rect x="276" y="512" width="92" height="17" class="label-bg" />
+  <text x="322" y="524" class="dependency-label">container image</text>
+
+  <path d="M680 585 V640 H710 V585" class="dependency" />
+  <rect x="630" y="637" width="130" height="17" class="label-bg" />
+  <text x="695" y="649" class="dependency-label">Key Vault Secrets User</text>
+
+  <path d="M805 550 V478 H510" class="dependency" />
+  <rect x="570" y="458" width="78" height="17" class="label-bg" />
+  <text x="609" y="470" class="dependency-label">private access</text>
+
+  <path d="M400 457 V325" class="dependency" />
+  <rect x="407" y="378" width="91" height="17" class="label-bg" />
+  <text x="452.5" y="390" class="dependency-label">secret reference</text>
+
+  <path d="M20 702 H50" class="data-flow" />
+  <text x="60" y="706" class="legend">Runtime telemetry and query flow</text>
+  <path d="M325 702 H355" class="dependency" />
+  <text x="365" y="706" class="legend">Identity or deployment dependency</text>
+</svg>
