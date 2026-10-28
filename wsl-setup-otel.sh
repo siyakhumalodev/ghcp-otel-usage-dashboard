@@ -15,7 +15,7 @@
 
 set -euo pipefail
 
-DEFAULT_COLLECTOR_ENDPOINT="https://collectorv2.purpleocean-eb978143.uksouth.azurecontainerapps.io"
+DEFAULT_COLLECTOR_ENDPOINT=""
 DEFAULT_OTLP_PROTOCOL="otlp-http"
 
 trim_whitespace() {
@@ -94,6 +94,10 @@ main() {
   echo "OpenTelemetry environment setup for WSL"
 
   collector_endpoint=$(prompt_with_default "Collector endpoint" "${OTEL_EXPORTER_OTLP_ENDPOINT:-$DEFAULT_COLLECTOR_ENDPOINT}")
+  if [[ -z "$collector_endpoint" ]]; then
+    echo "Collector endpoint is required." >&2
+    return 1
+  fi
   squad_name=$(prompt_with_default "Squad name" "${OTEL_RESOURCE_ATTRIBUTE_SQUAD:-${SQUAD_NAME:-}}")
   product_name=$(prompt_with_default "Product name" "${OTEL_RESOURCE_ATTRIBUTE_PRODUCT:-${PRODUCT_NAME:-}}")
 
