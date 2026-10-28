@@ -7,57 +7,9 @@ ms.topic: architecture
 
 ## Runtime Dataflow
 
-```mermaid
-flowchart TB
-    vscode["VS Code<br/>GitHub Copilot"]
-    viewer["Dashboard viewer"]
+![Detailed runtime dataflow](images/dataflow.svg)
 
-    subgraph rg["Azure resource group"]
-        direction TB
-        acr[("Azure Container Registry")]
-        identity["Collector user-assigned identity"]
-        kv["Azure Key Vault"]
-        ai["Application Insights"]
-        law[("Log Analytics workspace")]
-        grafana["Azure Managed Grafana"]
-
-        subgraph vnet["Virtual network"]
-            direction TB
-            subgraph aca_subnet["Container Apps delegated subnet"]
-                subgraph collector["OpenTelemetry Collector on Azure Container Apps"]
-                    direction TB
-                    receiver["OTLP receiver"]
-                    processors["Batch and attribute processors"]
-                    monitor_exporter["Azure Monitor exporter"]
-                    debug_exporter["Debug exporter"]
-                end
-            end
-
-            subgraph pe_subnet["Private endpoint subnet"]
-                kv_pe["Key Vault private endpoint"]
-            end
-        end
-
-        aca_logs["Container Apps logs"]
-    end
-
-    vscode -->|"OTLP/HTTP traces and metrics<br/>public HTTPS ingress"| receiver
-    receiver --> processors
-    processors -->|"traces and metrics"| monitor_exporter
-    monitor_exporter -->|"Azure Monitor ingestion"| ai
-    ai -->|"workspace-based telemetry"| law
-    processors -->|"traces"| debug_exporter
-    debug_exporter --> aca_logs
-    aca_logs --> law
-    law <-->|"KQL queries and results"| grafana
-    grafana -->|"HTTPS"| viewer
-
-    acr -. "collector image" .-> collector
-    identity -. "AcrPull" .-> acr
-    identity -. "Key Vault Secrets User" .-> kv
-    kv -. "Application Insights connection string" .-> kv_pe
-    kv_pe -. "private secret resolution" .-> collector
-```
+Open the [editable draw.io source](dataflow.drawio) to customize the diagram.
 
 ## Key Relationships
 

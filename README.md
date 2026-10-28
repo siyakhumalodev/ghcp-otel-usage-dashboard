@@ -193,7 +193,7 @@ guidance.
 * [Dockerfile](Dockerfile) builds the collector image
 * [config.yaml](config.yaml) configures receivers, processors, and exporters
 * [grafana-agent-usage-geo.json](grafana-agent-usage-geo.json) defines the dashboard
-* [KQL-queries.txt](KQL-queries.txt) contains exploratory queries
+* [KQL-queries.md](KQL-queries.md) contains annotated telemetry queries
 * [terraform](terraform) contains the Azure infrastructure definition
 * [wsl-setup-otel.sh](wsl-setup-otel.sh) configures a WSL session before VS Code starts
 * [docs](docs) contains deployment, architecture, reporting, and operations guides
