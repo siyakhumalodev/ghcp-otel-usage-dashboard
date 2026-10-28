@@ -21,7 +21,9 @@ this guide are optional hardening changes and are not active until added to
 > [!CAUTION]
 > The trace debug exporter can write detailed telemetry to Container Apps logs.
 > Remove it or reduce its verbosity after troubleshooting if those logs could
-> contain sensitive attributes.
+> contain sensitive attributes. When those logs enter Log Analytics, debug output
+> can also amplify billable ingestion. See
+> [cost estimation and operations](cost-and-operations.md).
 
 ## Inspect Before Filtering
 

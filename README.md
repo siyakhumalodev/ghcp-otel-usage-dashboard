@@ -51,7 +51,7 @@ flows.
 | `KQL-queries.txt` | Provides exploratory Application Insights queries |
 | `terraform/` | Provisions the Azure resources and optional dashboard import |
 | `wsl-setup-otel.sh` | Sets OTLP environment variables and optional organization metadata before VS Code starts |
-| `docs/` | Contains architecture, deployment, setup, metadata, and filtering guides |
+| `docs/` | Contains architecture, deployment, reporting, cost, metadata, and filtering guides |
 | `.github/agents/` | Contains sample custom agents for generating test telemetry |
 | `.github/skills/` | Contains sample skills for generating test telemetry |
 
@@ -195,6 +195,8 @@ Allow several minutes for ingestion before checking the Grafana panels.
 * [Azure Portal setup](docs/portal-setup.md)
 * [Adding organization metadata](docs/adding-extra-metadata.md)
 * [Filtering sensitive telemetry](docs/filtering-telemetry.md)
+* [Querying and reporting on telemetry](docs/querying-and-reporting.md)
+* [Cost estimation and operations](docs/cost-and-operations.md)
 
 ## Tear Down
 
